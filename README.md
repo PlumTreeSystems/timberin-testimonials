@@ -1,4 +1,4 @@
-# timberin-testimonials
+# Timberin testimonials
 Wordpress testimonials plugin for Timberin
 
 
