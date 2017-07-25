@@ -101,7 +101,7 @@ class TimberinTestimonialsAdmin {
             'pts-testimonial-settings',
             function (){
 
-                $url = "http://".$_SERVER['HTTP_HOST']."/wp-json/timberin/testimonials";
+                $url = get_home_url()."/wp-json/timberin/testimonials";
                 require_once plugin_dir_path( __FILE__ ) . 'views/timberin-testimonials-settings.php';
         });
     }
