@@ -3,8 +3,8 @@
 
 class TimberinTestimonialsAdmin {
     const testimonial_type = 'pts_testimonials';
-    const fields = ['tt_client', 'tt_address', 'tt_category', 'tt_img', 'tt_coord_long', 'tt_coord_lat'];
-    const categories = [
+    public static $fields = ['tt_client', 'tt_address', 'tt_category', 'tt_img', 'tt_coord_long', 'tt_coord_lat'];
+    public static $categories = [
         'hot_tub' => 'Hot tub',
         'sauna' => 'Sauna',
     ];
@@ -67,7 +67,7 @@ class TimberinTestimonialsAdmin {
         if ( !isset( $_POST['timberin_testimonial_nonce'] ) || !wp_verify_nonce( $_POST['timberin_testimonial_nonce'], plugin_basename( __FILE__ ) ) ){
             return $post_id;
         }
-        foreach(self::fields as $field){
+        foreach(self::$fields as $field){
             if(isset( $_POST[$field] )){
                 $value = wp_filter_post_kses($_POST[$field]);
                 update_post_meta($post->ID, $field, $value);
@@ -141,7 +141,7 @@ class TimberinTestimonialsAdmin {
     public function render_meta_box() {
         wp_enqueue_media();
         $values = $this->get_meta_values($this->post->ID);
-        $categories = self::categories;
+        $categories = self::$categories;
         echo '<input type="hidden" name="timberin_testimonial_nonce" id="timberin_testimonial_nonce" value="' .
             wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
         require_once plugin_dir_path( __FILE__ ) . 'views/timberin-testimonials.php';
@@ -150,7 +150,7 @@ class TimberinTestimonialsAdmin {
     private function get_meta_values($post_id){
 
         $values = [];
-        foreach (self::fields as $field){
+        foreach (self::$fields as $field){
             $values[$field] = get_post_meta($post_id, $field, true);
         }
         return $values;

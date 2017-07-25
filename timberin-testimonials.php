@@ -6,6 +6,8 @@
  * Author:            Plum Tree Systems
  * Author URI:        http://plumtreesystems.com
  * Text Domain:       timberin-testimonials-locale
+ * Plugin URI:        https://github.com/PlumTreeSystems/timberin-testimonials
+
  */
 
 if ( ! defined( 'WPINC' ) ) {
