@@ -1,6 +1,20 @@
 <div class="wrap">
 <h1>Timberin testimonial settings</h1>
 
+    <form method="post">
+        <table class="form-table">
+            <tr>
+                <td colspan='2'>
+                    <h2>Import existing testimonials (all posts with type "testimonial"):</h2>
+                </td>
+                <td colspan='2'>
+                    <span><?php echo $import ?></span>
+                    <input type="submit" name="pts_import_testimonials" value='import'>
+                </td>
+            </tr>
+        </table>
+    </form>
+
     <form method="post" action="options.php">
         <?php settings_fields( 'timberin-testimonials-settings-group' ); ?>
     <table class="form-table">

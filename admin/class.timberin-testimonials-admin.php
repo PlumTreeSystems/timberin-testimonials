@@ -92,6 +92,28 @@ class TimberinTestimonialsAdmin {
         });
     }
 
+    public function import_testimonials(){
+        $posts = get_posts(array(
+                'post_type'   => 'testimonial',
+                'post_status' => 'publish',
+                'posts_per_page' => -1,
+            )
+        );
+        foreach ($posts as $post){
+            $img = get_post_meta($post->ID, "_thumbnail_id", true);
+            $p = get_object_vars($post);
+            $p['ID'] = 0;
+            $p['post_type'] = self::testimonial_type;
+            $p['meta_input'] = [
+                'tt_img' => $img
+            ];
+            wp_insert_post($p);
+        }
+
+
+        return sizeof($posts).' testimonials imported!';
+    }
+
     public function register_export_page(){
 
         add_submenu_page('edit.php?post_type='.self::testimonial_type,
@@ -100,7 +122,10 @@ class TimberinTestimonialsAdmin {
             'edit_posts',
             'pts-testimonial-settings',
             function (){
-
+                $import = '';
+                if (isset($_POST['pts_import_testimonials'])){
+                    $import = $this->import_testimonials();
+                }
                 $url = get_home_url()."/wp-json/timberin/testimonials";
                 require_once plugin_dir_path( __FILE__ ) . 'views/timberin-testimonials-settings.php';
         });
