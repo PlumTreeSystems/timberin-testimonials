@@ -92,6 +92,47 @@ class TimberinTestimonialsAdmin {
         });
     }
 
+    private function resolve_coords($adr){
+        $lng = '';
+        $lat = '';
+        $address = urlencode($adr);
+        $apiKey = get_option('google_api_key');
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?key=$apiKey&address=$address";
+        $resp_json = file_get_contents($url);
+        $resp = json_decode($resp_json, true);
+        if($resp['status']=='OK'){
+            $lat = $resp['results'][0]['geometry']['location']['lat'];
+            $lng = $resp['results'][0]['geometry']['location']['lng'];
+        }
+        return [
+            'lng' => $lng,
+            'lat' => $lat
+        ];
+    }
+
+    /**
+     * Simple address extractor from title if title ends with address
+     * @param $str
+     */
+    private function get_address($str){
+        $address = '';
+        $lat = '';
+        $lng = '';
+        $exploded = explode(',', $str);
+        $size = sizeof($exploded);
+        if($size > 2){
+            $address = trim($exploded[$size - 2]).', '.trim($exploded[$size - 1]);
+            $coords = $this->resolve_coords($address);
+            $lat = $coords['lat'];
+            $lng = $coords['lng'];
+        }
+        return [
+            'tt_address' => $address,
+            'tt_coord_long' => $lng,
+            'tt_coord_lat' => $lat,
+        ];
+    }
+
     public function import_testimonials(){
         $posts = get_posts(array(
                 'post_type'   => 'testimonial',
@@ -104,10 +145,10 @@ class TimberinTestimonialsAdmin {
             $p = get_object_vars($post);
             $p['ID'] = 0;
             $p['post_type'] = self::testimonial_type;
-            $p['meta_input'] = [
-                'tt_img' => $img
-            ];
+            $p['meta_input'] = $this->get_address($post->post_title);
+            $p['meta_input']['tt_img'] = $img;
             wp_insert_post($p);
+
         }
 
 
