@@ -2,7 +2,7 @@
 <div class="testimonial two-fourth <?php echo $i++ % 2 ? '' : 'last' ?>">
     <div class="thumbnail">
         <a class="name" href="<?php echo $testimonial['url'] ?>">
-            <img title="" width="94" height="94" src="<?php echo $testimonial['thumbnail'] ?>" class="attachment-thumb_testimonial size-thumb_testimonial wp-post-image lazy-loaded"  data-src="<?php echo $testimonial['title'] ?>" data-lazy-type="image">
+            <img title="" width="94" height="94" src="<?php echo $testimonial['thumbnail'] ?>" class="">
         </a>
     </div>
     <div class="testimonial-text">
