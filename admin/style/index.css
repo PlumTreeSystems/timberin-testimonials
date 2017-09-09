@@ -1,0 +1,8 @@
+.single-testimonial .testimonial .thumbnail {
+    position: relative;
+}
+
+.single-testimonial .blog-big .thumbnail .image-wrap img {
+    width: 100%;
+    height: 100%;
+}

@@ -44,6 +44,7 @@ class TimberinTestimonials {
         $this->loader->add_action( 'admin_menu', $admin, 'register_export_page' );
         $this->loader->add_action( 'rest_api_init', $admin, 'register_endpoint' );
         $this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scrips' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $admin, 'enqueue_style' );
         $this->loader->add_action( 'save_post_pts_testimonials', $admin, 'save_testimonial' );
         $this->loader->add_action( 'widgets_init', $widget, 'register' );
         $widget->register_shorcode();

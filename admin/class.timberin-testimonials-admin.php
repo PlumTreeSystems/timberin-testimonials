@@ -30,6 +30,16 @@ class TimberinTestimonialsAdmin {
         );
     }
 
+    public function enqueue_style() {
+        wp_enqueue_style(
+            'timberin-testimonials-admin-style',
+            plugin_dir_url( __FILE__ ) . 'style/index.css',
+            [],
+            $this->version,
+            false
+        );
+    }
+
 
 
     public function register_post_type() {
