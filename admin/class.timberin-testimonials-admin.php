@@ -145,7 +145,7 @@ class TimberinTestimonialsAdmin {
 
     public function import_testimonials(){
         $posts = get_posts(array(
-                'post_type'   => 'testimonial',
+                'post_type'   => 'bl_testimonials',
                 'post_status' => 'publish',
                 'posts_per_page' => -1,
             )
@@ -187,7 +187,7 @@ class TimberinTestimonialsAdmin {
     public function get_all_testimonials(){
         $posts = get_posts(array(
                 'post_type'   => self::testimonial_type,
-                'post_status' => 'publish',
+                'post_status' => ['publish', 'pending'],
                 'posts_per_page' => -1,
             )
         );
