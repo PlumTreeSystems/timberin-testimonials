@@ -45,7 +45,10 @@ class TimberinTestimonialsWidget extends WP_Widget {
 
             $testimonials[] = $testimonial;
         }
+        ob_start();
         require_once plugin_dir_path( __FILE__ ) . '../views/timberin-testimonials.php';
+        $view = ob_get_clean();
+        return $view;
     }
 
 
