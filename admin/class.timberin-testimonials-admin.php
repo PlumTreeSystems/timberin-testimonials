@@ -83,6 +83,9 @@ class TimberinTestimonialsAdmin {
                 update_post_meta($post->ID, $field, $value);
             }
         }
+        if (isset( $_POST['tt_img'] )){
+            set_post_thumbnail($post, $_POST['tt_img']);
+        }
 
     }
 
@@ -157,8 +160,10 @@ class TimberinTestimonialsAdmin {
             $p['post_type'] = self::testimonial_type;
             $p['meta_input'] = $this->get_address($post->post_title);
             $p['meta_input']['tt_img'] = $img;
-            wp_insert_post($p);
-
+            $postId = wp_insert_post($p);
+            if ($postId > 0 && $img){
+                set_post_thumbnail($postId, $img);
+            }
         }
 
 
